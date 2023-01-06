@@ -24,9 +24,9 @@ app.get('/api/hello', function(req, res) {
   res.json({ greeting: 'hello API' });
 });
 
+const arrLink = []
 
 app.post("/api/shorturl", (req, res) => {
-  const arrLink = []
   const link = req.body.url
   // console.log(req.body)
   const parsedUrl = url.parse(link);

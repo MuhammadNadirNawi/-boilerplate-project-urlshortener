@@ -4,7 +4,8 @@ const cors = require('cors');
 const app = express();
 const dns = require('dns');
 const url = require('url');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const e = require('express');
 
 
 
@@ -34,20 +35,23 @@ app.post("/api/shorturl", (req, res) => {
   dns.lookup(hostname, (err, address, family) => {
     if (err) {
       console.error(`DNS lookup failed: ${err.message}`);
-      return;
     }
   
     console.log(`IP address: ${address}`);
     console.log(`IP family: IPv${family}`);
+    if(address == null){
+      res.json({error: "invalid url"})
+    }
+    else{
+      const randomNumber = Math.floor(Math.random() * 10000);
+
+      const object = {[randomNumber]: link}
+      arrLink.push(object)
+      console.log(arrLink)
+    
+      res.json({original_url: link, short_url: randomNumber})
+    }
   });
-
-  const randomNumber = Math.floor(Math.random() * 10000);
-
-  const object = {[randomNumber]: link}
-  arrLink.push(object)
-  console.log(arrLink)
-
-  res.json({original_url: link, short_url: randomNumber})
 })
 
 
